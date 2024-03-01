@@ -1,22 +1,38 @@
-const boba = document.querySelectorAll('.button')
+const display = document.getElementById('display')
+const numbers = document.querySelectorAll('[id *= num]')
+const operadores = document.querySelectorAll('[id *= operador]')
+let newNumber = true
+let numberBefore;
+let operador;
 
-const numbers =  [
-    {'num1' : document.getElementById('num1')},
-    {'num2' : document.getElementById('num2')},
-    {'num3' : document.getElementById('num3')},
-    {'num4' : document.getElementById('num4')},
-    {'num5' : document.getElementById('num5')},
-    {'num6' : document.getElementById('num6')},
-    {'num7' : document.getElementById('num7')},
-    {'num8' : document.getElementById('num8')},
-    {'num9' : document.getElementById('num9')},
-]
+const atualizarDisplay = text => {
+    if(newNumber == true){
+        display.textContent = text
+        newNumber = false
+    }
+    else{
+        display.textContent += text
+    }
+}
 
-document.addEventListener('click' , (Event) => {
-    const number = Event.target.id
-    console.log(number)
+const insertNum = (Event) =>{
+    atualizarDisplay(Event.target.textContent)
+}
 
-    console.log(numbers[1])
+const chooseOperator = (Event) => {
+    
+    if(newNumber == false){
+    newNumber = true
+    let numberBefore = Number(display.textContent)
+    console.log(numberBefore)
+    operador = Event.target.textContent
+    console.log(operador)
+    }
+   
+}
+
+numbers.forEach((num) => {
+    num.addEventListener('click' , insertNum)
 })
-
-console.log(boba)
+  
+operadores.forEach((operador) => operador.addEventListener('click' , chooseOperator))
